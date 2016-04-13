@@ -1,0 +1,42 @@
+---
+#playbook to install base lamp packages, fail2ban, postfix, apticron
+#installs:
+# php 5.6
+# python-software-properties for php 5.6 install
+# php5-myslnd
+# php5-curl
+# apache2
+# fail2ban
+# apticron
+# postfix
+
+- hosts: #add hosts here
+  sudo: true  
+  tasks:
+  - name: add php 5.6 repo
+    apt_repository: repo='ppa:ondrej/php5-5.6'
+  - name: apt-get update
+    apt: update_cache=yes
+  - name: install php5
+    apt: name=php5 state=present
+  - name: install php5-mysqlnd
+    apt: name=php5-mysqlnd state=present
+  - name: php5-curl
+    apt: name=php5-curl state=present
+  - name: install python-software-properties
+    apt: name=python-software-properties state=present
+  - name: apt-get update
+    apt: update_cache=yes
+  - name: install apache2
+    apt: name=apache2 state=present
+  - name: install fail2ban
+    apt: name=fail2ban state=present
+  - name: install postfix
+    apt: name=postfix state=present
+  - name: install apticron
+    apt: name=apticron state=present
+  - name: update repo cache 
+    apt: update_cache=yes
+  - name: update all pages to latest version
+    apt: upgrade=dist
+
